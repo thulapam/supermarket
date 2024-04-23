@@ -80,6 +80,7 @@ class PosController extends BaseController
                     'product_variant_id' => $value['product_variant_id'],
                     'total' => $value['subtotal'],
                     'price' => $value['Unit_price'],
+                    'mrp'   => $value['mrp'],
                     'TaxNet' => $value['tax_percent'],
                     'tax_method' => $value['tax_method'],
                     'discount' => $value['discount'],
@@ -383,6 +384,7 @@ class PosController extends BaseController
                 'product_variant_id' => $value['product_variant_id'],
                 'total' => $value['subtotal'],
                 'price' => $value['Unit_price'],
+                'mrp'   => $value['mrp'],
                 'TaxNet' => $value['tax_percent'],
                 'tax_method' => $value['tax_method'],
                 'discount' => $value['discount'],
@@ -477,6 +479,7 @@ class PosController extends BaseController
                         'product_variant_id' => $value['product_variant_id'],
                         'total' => $value['subtotal'],
                         'price' => $value['Unit_price'],
+                        'mrp'   => $value['mrp'],
                         'TaxNet' => $value['tax_percent'],
                         'tax_method' => $value['tax_method'],
                         'discount' => $value['discount'],
@@ -825,7 +828,7 @@ class PosController extends BaseController
 
             $tax_price = $detail->TaxNet * (($detail->price - $data['DiscountNet']) / 100);
             $data['Unit_price'] = $detail->price;
-            
+            $data['mrp'] = $detail->mrp;
             $data['tax_percent'] = $detail->TaxNet;
             $data['tax_method'] = $detail->tax_method;
             $data['discount'] = $detail->discount;
@@ -944,7 +947,8 @@ class PosController extends BaseController
                 $item['barcode'] = $product_warehouse['product']->code;
 
                 $product_price =  $product_warehouse['product']->price;
-
+                $product_mrp   =  $product_warehouse['product']->mrp;
+                $item['mrp']   =  $product_mrp;
             }
             $item['id'] = $product_warehouse->product_id;
             $firstimage = explode(',', $product_warehouse['product']->image);

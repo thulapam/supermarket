@@ -70,6 +70,7 @@
                   <tr>
                      <th>PRODUCT</th>
                      <th>UNIT PRICE</th>
+                     <th>MRP</th>
                      <th>QUANTITY</th>
                      <th>DISCOUNT</th>
                      <th>TAX</th>
@@ -86,6 +87,7 @@
                            @endif
                      </td>
                      <td>{{$detail['price']}} </td>
+                     <td>{{$detail['mrp']}} </td>
                      <td>{{$detail['quantity']}}/{{$detail['unitSale']}}</td>
                      <td>{{$detail['DiscountNet']}} </td>
                      <td>{{$detail['taxe']}} </td>

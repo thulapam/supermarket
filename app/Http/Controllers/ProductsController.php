@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\File;
 class ProductsController extends BaseController
 {
 
-    //------------ Get ALL Products --------------\\
+    //------------ Get show_product_data --------------\\
 
     public function index(request $request)
     {
@@ -95,6 +95,7 @@ class ProductsController extends BaseController
                 $item['name']  = $product->name;
                 $item['cost']  = number_format($product->cost, 2, '.', ',');
                 $item['price'] = number_format($product->price, 2, '.', ',');
+                $item['mrp'] = number_format($product->mrp, 2, '.', ',');
                 $item['unit']  = $product['unit']->ShortName;
 
               $product_warehouse_total_qty = product_warehouse::where('product_id', $product->id)
@@ -112,6 +113,7 @@ class ProductsController extends BaseController
 
                   $item['cost'] = '';
                   $item['price'] = '';
+                  $item['mrp'] = '';
                   $item['name'] = '';
                   $item['unit'] = $product['unit']->ShortName;
 
@@ -120,6 +122,8 @@ class ProductsController extends BaseController
                       $item['cost']  .= '<br>';
                       $item['price'] .= number_format($product_variant->price, 2, '.', ',');
                       $item['price'] .= '<br>';
+                      $item['mrp'] .= number_format($product_variant->mrp, 2, '.', ',');
+                      $item['mrp'] .= '<br>';
                       $item['name']  .= $product_variant->name.'-'.$product->name;
                       $item['name']  .= '<br>';
                   }
@@ -134,10 +138,12 @@ class ProductsController extends BaseController
                   $item['type'] = 'Service';
                   $item['name'] = $product->name;
                   $item['cost'] = '----';
+                  $item['mrp'] = '----';
                   $item['quantity'] = '----';
                   $item['unit'] = '----';
 
                   $item['price'] = number_format($product->price, 2, '.', ',');
+                  $item['mrp'] = number_format($product->mrp, 2, '.', ',');
               }
 
 
@@ -193,6 +199,7 @@ class ProductsController extends BaseController
                 'unit_id'      => Rule::requiredIf($request->type != 'is_service'),
                 'cost'         => Rule::requiredIf($request->type == 'is_single'),
                 'price'        => Rule::requiredIf($request->type != 'is_variant'),
+                'mrp'          => Rule::requiredIf($request->type != 'is_variant'),
             ];
 
 
@@ -223,6 +230,9 @@ class ProductsController extends BaseController
                                     return;
                                 }else if(!array_key_exists('price', $variant) || empty($variant['price'])) {
                                     $fail('Variant price cannot be empty.');
+                                    return;
+                                }else if(!array_key_exists('mrp', $variant) || empty($variant['mrp'])) {
+                                    $fail('Variant mrp cannot be empty.');
                                     return;
                                 }
                             }
@@ -274,7 +284,19 @@ class ProductsController extends BaseController
                             $fail('Variant Price cannot be empty.');
                             return;
                         }
-
+                        //check if variant price empty
+                        $all_mrp = array_column($variants, 'mrp');
+                        if($all_mrp){
+                            foreach ($all_mrp as $mrp) {
+                                if (empty($mrp)) {
+                                    $fail('Variant mrp cannot be empty.');
+                                    return;
+                                }
+                            }
+                        }else{
+                            $fail('Variant Price cannot be empty.');
+                            return;
+                        }
                         //check if code empty
                         $codes = array_column($variants, 'code');
                         if($codes){
@@ -348,7 +370,7 @@ class ProductsController extends BaseController
                  if($request['type'] == 'is_single'){
                     $Product->price = $request['price'];
                     $Product->cost  = $request['cost'];
-
+                    $Product->mrp  = $request['mrp'];
                     $Product->unit_id = $request['unit_id'];
                     $Product->unit_sale_id = $request['unit_sale_id'] ? $request['unit_sale_id'] : $request['unit_id'];
                     $Product->unit_purchase_id = $request['unit_purchase_id'] ? $request['unit_purchase_id'] : $request['unit_id'];
@@ -376,7 +398,7 @@ class ProductsController extends BaseController
                 }else{
                     $Product->price = $request['price'];
                     $Product->cost  = 0;
-
+                    $Product->mrp = $request['mrp'];
                     $Product->unit_id = NULL;
                     $Product->unit_sale_id = NULL;
                     $Product->unit_purchase_id = NULL;
@@ -447,6 +469,7 @@ class ProductsController extends BaseController
                             'name'  => $variant->text,
                             'cost'  => $variant->cost,
                             'price' => $variant->price,
+                            'mrp'   => $variant->mrp,
                             'code'  => $variant->code,
                         ];
                     }
@@ -524,6 +547,7 @@ class ProductsController extends BaseController
                 'unit_id'     => Rule::requiredIf($request->type != 'is_service'),
                 'cost'        => Rule::requiredIf($request->type == 'is_single'),
                 'price'       => Rule::requiredIf($request->type != 'is_variant'),
+                'mrp'         => Rule::requiredIf($request->type != 'is_variant'),
             ];
 
 
@@ -555,6 +579,9 @@ class ProductsController extends BaseController
                                     return;
                                 }else if(!array_key_exists('price', $variant) || empty($variant['price'])) {
                                     $fail('Variant price cannot be empty.');
+                                    return;
+                                }else if(!array_key_exists('mrp', $variant) || empty($variant['mrp'])) {
+                                    $fail('Variant mrp cannot be empty.');
                                     return;
                                 }
                             }
@@ -602,6 +629,19 @@ class ProductsController extends BaseController
                             }
                         }else{
                             $fail('Variant Price cannot be empty.');
+                            return;
+                        }
+
+                        $all_mrp = array_column($variants, 'mrp');
+                        if($all_mrp){
+                            foreach ($all_mrp as $mrp) {
+                                if (empty($mrp)) {
+                                    $fail('Variant mrp cannot be empty.');
+                                    return;
+                                }
+                            }
+                        }else{
+                            $fail('Variant mrp cannot be empty.');
                             return;
                         }
 
@@ -690,7 +730,7 @@ class ProductsController extends BaseController
                  if($request['type'] == 'is_single'){
                     $Product->price = $request['price'];
                     $Product->cost  = $request['cost'];
-
+                    $Product->mrp  = $request['mrp'];
                     $Product->unit_id = $request['unit_id'];
                     $Product->unit_sale_id = $request['unit_sale_id'] ? $request['unit_sale_id'] : $request['unit_id'];
                     $Product->unit_purchase_id = $request['unit_purchase_id'] ? $request['unit_purchase_id'] : $request['unit_id'];
@@ -719,7 +759,7 @@ class ProductsController extends BaseController
                 }else{
                     $Product->price = $request['price'];
                     $Product->cost  = 0;
-
+                    $Product->cost  = $request['mrp'];
                     $Product->unit_id = NULL;
                     $Product->unit_sale_id = NULL;
                     $Product->unit_purchase_id = NULL;
@@ -781,6 +821,7 @@ class ProductsController extends BaseController
                                 $ProductVariantDT->product_id = $variant['product_id'];
                                 $ProductVariantDT->name = $variant['text'];
                                 $ProductVariantDT->price = $variant['price'];
+                                $ProductVariantDT->mrp = $variant['mrp'];
                                 $ProductVariantDT->cost = $variant['cost'];
                                 $ProductVariantDT->code = $variant['code'];
 
@@ -788,6 +829,7 @@ class ProductsController extends BaseController
                                 $ProductVariantUP['code'] = $variant['code'];
                                 $ProductVariantUP['name'] = $variant['text'];
                                 $ProductVariantUP['price'] = $variant['price'];
+                                $ProductVariantUP['mrp'] = $variant['mrp'];
                                 $ProductVariantUP['cost'] = $variant['cost'];
 
                             } else {
@@ -804,6 +846,7 @@ class ProductsController extends BaseController
                                  $ProductVariantUP['code'] = $variant['code'];
                                  $ProductVariantUP['name'] = $variant['text'];
                                  $ProductVariantUP['price'] = $variant['price'];
+                                 $ProductVariantUP['mrp'] = $variant['mrp'];
                                  $ProductVariantUP['cost'] = $variant['cost'];
                                  $ProductVariantUP['qty'] = 0.00;
                             }
@@ -847,6 +890,7 @@ class ProductsController extends BaseController
                            $ProductVarDT->name = $variant['text'];
                            $ProductVarDT->cost = $variant['cost'];
                            $ProductVarDT->price = $variant['price'];
+                           $ProductVarDT->mrp = $variant['mrp'];
                            $ProductVarDT->save();
 
 
@@ -1080,6 +1124,7 @@ class ProductsController extends BaseController
         $item['category'] = $Product['category']->name;
         $item['brand'] = $Product['brand'] ? $Product['brand']->name : 'N/D';
         $item['price'] = $Product->price;
+        $item['mrp'] = $Product->mrp;
         $item['cost'] = $Product->cost;
         $item['stock_alert'] = $Product->stock_alert;
         $item['taxe'] = $Product->TaxNet;
@@ -1109,7 +1154,7 @@ class ProductsController extends BaseController
                 $ProductVariant['name'] = $variant->name;
                 $ProductVariant['cost'] = number_format($variant->cost, 2, '.', ',');
                 $ProductVariant['price'] = number_format($variant->price, 2, '.', ',');
-
+                $ProductVariant['mrp'] = number_format($variant->mrp, 2, '.', ',');
                 $item['products_variants_data'][] = $ProductVariant;
 
                 foreach ($warehouses as $warehouse) {
@@ -1309,8 +1354,9 @@ class ProductsController extends BaseController
         //product single
         if($Product_data['type'] == 'is_single'){
             $product_price = $Product_data['price'];
+            $product_mrp = $Product_data['mrp'];
             $product_cost  = $Product_data['cost'];
-
+            $product_mrp = $Product_data['mrp'];
             $item['code'] = $Product_data['code'];
             $item['name'] = $Product_data['name'];
 
@@ -1321,6 +1367,7 @@ class ProductsController extends BaseController
             ->where('id', $variant_id)->first();
 
             $product_price = $product_variant_data['price'];
+            $product_mrp = $product_variant_data['mrp'];
             $product_cost  = $product_variant_data['cost'];
             $item['code'] = $product_variant_data['code'];
             $item['name'] = '['.$product_variant_data['name'].']'.$Product_data['name'];
@@ -1329,6 +1376,7 @@ class ProductsController extends BaseController
         }else{
 
             $product_price = $Product_data['price'];
+            $product_mrp = $Product_data['mrp'];
             $product_cost  = 0;
 
             $item['code'] = $Product_data['code'];
@@ -1367,6 +1415,7 @@ class ProductsController extends BaseController
         $item['Unit_cost'] = $cost;
         $item['fix_cost'] = $product_cost;
         $item['Unit_price'] = $price;
+        $item['mrp'] = $product_mrp;
         $item['fix_price'] = $product_price;
 
         if ($Product_data->TaxNet !== 0.0) {
@@ -1573,6 +1622,7 @@ class ProductsController extends BaseController
 
         $item['tax_method'] = $Product->tax_method;
         $item['price'] = $Product->price;
+        $item['mrp'] = $Product->mrp;
         $item['cost'] = $Product->cost;
         $item['stock_alert'] = $Product->stock_alert;
         $item['TaxNet'] = $Product->TaxNet;
@@ -1607,6 +1657,7 @@ class ProductsController extends BaseController
                 $variant_item['text'] = $variant->name;
                 $variant_item['code'] = $variant->code;
                 $variant_item['price'] = $variant->price;
+                $variant_item['mrp'] = $variant->mrp;
                 $variant_item['cost'] = $variant->cost;
                 $variant_item['product_id'] = $variant->product_id;
                 $item['ProductVariant'][] = $variant_item;
@@ -1754,6 +1805,7 @@ class ProductsController extends BaseController
                         $Product->Type_barcode = 'CODE128';
                         $Product->type = 'is_single';
                         $Product->price = str_replace(",","",$value['price']);
+                        $Product->mrp = str_replace(",","",$value['mrp']);
                         $Product->cost = str_replace(",","",$value['cost']);
                         $Product->category_id = $category_id;
                         $Product->brand_id = $brand_id;

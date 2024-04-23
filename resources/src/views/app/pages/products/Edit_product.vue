@@ -271,6 +271,33 @@
                   </validation-provider>
                 </b-col>
 
+                <!-- Product mrp -->
+                <b-col
+                  md="6"
+                  class="mb-2"
+                  v-if="product.type == 'is_single' || product.type == 'is_service'"
+                >
+                  <validation-provider
+                    name="Product MRP"
+                    :rules="{ required: true , regex: /^\d*\.?\d*$/}"
+                    v-slot="validationContext"
+                  >
+                    <b-form-group :label="$t('ProductMrp') + ' ' + '*'">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="ProductMrp-feedback"
+                        label="MRP"
+                        :placeholder="$t('Enter_Product_Mrp')"
+                        v-model="product.mrp"
+                      ></b-form-input>
+
+                      <b-form-invalid-feedback
+                        id="ProductMrp-feedback"
+                      >{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
                 <!-- Unit Product -->
                 <b-col md="6" class="mb-2" v-if="product.type != 'is_service'">
                   <validation-provider name="Unit Product" :rules="{ required: true}">

@@ -502,6 +502,7 @@ export default {
     BarcodeSymbology: 'Barcode Symbology',
     ProductCost: 'Product Cost',
     ProductPrice: 'Product Price',
+    ProductMrp: 'Product MRP',
     UnitProduct: 'Product Unit',
     TaxMethod: 'Tax Type',
     MultipleImage: 'Multiple Image',

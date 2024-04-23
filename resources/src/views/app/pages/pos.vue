@@ -226,6 +226,7 @@
                               <tr>
                                 <th scope="col">{{$t('ProductName')}}</th>
                                 <th scope="col">{{$t('Price')}}</th>
+                                <th scope="col">{{$t('Mrp')}}</th>
                                 <th scope="col" class="text-center">{{$t('Qty')}}</th>
                                 <th scope="col" class="text-center">{{$t('SubTotal')}}</th>
                                 <th scope="col" class="text-center">
@@ -239,13 +240,15 @@
                               </tr>
                               <tr v-for="(detail, index) in details" :key="index">
                                 <td>
-                                  <span>{{detail.code}}</span>
+                                  <span>{{detail.code}}</span> 
+                                  
                                   <br>
                                   <span class="badge badge-success">{{detail.name}}</span>
                                   <i v-if="currentUserPermissions && currentUserPermissions.includes('edit_product_sale')" 
                                     @click="Modal_Updat_Detail(detail)" class="i-Edit text-success cursor-pointer"></i>
                                 </td>
                                 <td>{{currentUser.currency}} {{formatNumber(detail.Total_price, 2)}}</td>
+                                <td>{{currentUser.currency}} {{formatNumber(detail.mrp, 2)}}</td>
                                 <td>
                                   <div class="quantity">
                                     <b-input-group>
@@ -2479,6 +2482,7 @@ export default {
         this.product.Net_price          = response.data.Net_price;
         this.product.Total_price        = response.data.Total_price;
         this.product.Unit_price         = response.data.Unit_price;
+        this.product.mrp                = response.data.mrp;
         this.product.taxe               = response.data.tax_price;
         this.product.tax_method         = response.data.tax_method;
         this.product.tax_percent        = response.data.tax_percent;

@@ -226,6 +226,7 @@
                               <tr>
                                 <th scope="col">{{$t('ProductName')}}</th>
                                 <th scope="col">{{$t('Price')}}</th>
+                                <th scope="col">{{$t('Mrp')}}</th>
                                 <th scope="col" class="text-center">{{$t('Qty')}}</th>
                                 <th scope="col" class="text-center">{{$t('SubTotal')}}</th>
                                 <th scope="col" class="text-center">
@@ -245,6 +246,7 @@
                                   <i v-if="currentUserPermissions && currentUserPermissions.includes('edit_product_sale')" 
                                     @click="Modal_Updat_Detail(detail)" class="i-Edit text-success cursor-pointer"></i>
                                 </td>
+                                <td>{{currentUser.currency}} {{formatNumber(detail.Total_price, 2)}}</td>
                                 <td>{{currentUser.currency}} {{formatNumber(detail.Total_price, 2)}}</td>
                                 <td>
                                   <div class="quantity">
@@ -294,7 +296,7 @@
                       <b-col md="12">
                         <div class="grandtotal">
                           <span>{{$t("Total_Payable")}} : {{currentUser.currency}} {{GrandTotal.toFixed(2)}}</span>
-                        </div>
+                        </div> 
                       </b-col>
 
                       <!-- Order Tax  -->

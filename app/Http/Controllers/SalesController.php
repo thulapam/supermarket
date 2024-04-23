@@ -1167,6 +1167,7 @@ class SalesController extends BaseController
                 $data['total'] = number_format($detail->total, 2, '.', '');
                 $data['unitSale'] = $unit?$unit->ShortName:'';
                 $data['price'] = number_format($detail->price, 2, '.', '');
+                $data['mrp'] = number_format($detail->mrp, 2, '.', '');
 
             if ($detail->discount_method == '2') {
                 $data['DiscountNet'] = number_format($detail->discount, 2, '.', '');

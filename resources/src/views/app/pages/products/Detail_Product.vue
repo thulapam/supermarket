@@ -53,6 +53,10 @@
                   <td>{{$t('Price')}}</td>
                   <th>{{currentUser.currency}} {{formatNumber(product.price ,2)}}</th>
                 </tr>
+                <tr v-if="product.type != 'is_variant'">
+                  <td>{{$t('Mrp')}}</td>
+                  <th>{{currentUser.currency}} {{formatNumber(product.mrp ,2)}}</th>
+                </tr>
                 <tr v-if="product.type != 'is_service'">
                   <td>{{$t('Unit')}}</td>
                   <th>{{product.unit}}</th>
