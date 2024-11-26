@@ -22,6 +22,8 @@
     max-height: 40vh!important;
     height: 40vh!important;
     border-bottom: none!important;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   #pos .pos-detail .table-responsive tr{
@@ -97,8 +99,8 @@
   }
 
   #invoice-POS{
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 14px;
     font-family: sans-serif;
     text-transform: capitalize;
 

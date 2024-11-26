@@ -1025,10 +1025,11 @@ class SalesController extends BaseController
                     $data['name'] = $detail['product']['name'];
                 }
                 
-           
             $data['quantity'] = number_format($detail->quantity, 2, '.', '');
+            $data['mrp'] = number_format($detail->mrp, 2, '.', '');
             $data['total'] = number_format($detail->total, 2, '.', '');
-            $data['unit_sale'] = $unit?$unit->ShortName:'';
+	   
+	    $data['unit_sale'] = $unit?$unit->ShortName:'';
 
             $data['is_imei'] = $detail['product']['is_imei'];
             $data['imei_number'] = $detail->imei_number;

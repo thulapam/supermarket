@@ -4,7 +4,7 @@
       <div v-if="isLoading" class="loading_page spinner spinner-primary mr-3"></div>
       <b-row v-if="!isLoading">
         <!-- Card Left Panel Details Sale-->
-        <b-col md="5">
+        <b-col md="8">
           <b-card no-body class="card-order">
             <div class="main-header">
               <div class="logo">
@@ -551,7 +551,7 @@
         </b-col>
 
         <!-- Card right Of Products -->
-        <b-col md="7">
+        <b-col md="4">
           <b-card class="list-grid">
             <b-row>
               <b-col md="6">
@@ -782,9 +782,9 @@
           <div id="invoice-POS">
             <div style="max-width:400px;margin:0px auto">
               <div class="info">
-                <div class="invoice_logo text-center mb-2">
+                <!--<div class="invoice_logo text-center mb-2">
                   <img :src="'/images/'+invoice_pos.setting.logo" alt width="60" height="60">
-                </div>
+                </div> -->
                 <p>
                   <span>{{$t('date')}} : {{invoice_pos.sale.date}} <br></span>
                   <span v-show="pos_settings.show_address">{{$t('Adress')}} : {{invoice_pos.setting.CompanyAdress}} <br></span>
@@ -804,7 +804,9 @@
                         <span v-show="detail_invoice.is_imei && detail_invoice.imei_number !==null ">{{$t('IMEI_SN')}} : {{detail_invoice.imei_number}}</span>
                         <br>
                         <span>{{formatNumber(detail_invoice.quantity,2)}} {{detail_invoice.unit_sale}} x {{formatNumber(detail_invoice.total/detail_invoice.quantity,2)}}</span>
-                    </td>
+                        &nbsp;
+			<span> MRP: {{detail_invoice.mrp}} </span>   
+		    </td>
                     <td
                       style="text-align:right;vertical-align:bottom"
                     >{{formatNumber(detail_invoice.total,2)}}</td>
@@ -2666,6 +2668,7 @@ export default {
       this.payment = {
         amount: "",
         received_amount: "",
+        account_id: "",
         Reglement: "",
         notes: "",
       };
