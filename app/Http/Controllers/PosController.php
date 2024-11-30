@@ -59,6 +59,8 @@ class PosController extends BaseController
             $order->discount = $request->discount;
             $order->shipping = $request->shipping;
             $order->GrandTotal = $request->GrandTotal;
+            $order->GrandTotalMrp = $request->GrandTotalMrp;
+            $order->TotalDiscounted = $request->TotalDiscounted;
             $order->notes = $request->notes;
             $order->statut = 'completed';
             $order->payment_statut = 'unpaid';
@@ -79,6 +81,7 @@ class PosController extends BaseController
                     'product_id' => $value['product_id'],
                     'product_variant_id' => $value['product_variant_id'],
                     'total' => $value['subtotal'],
+                    'totalmrp' => $value['subtotalmrp'],
                     'price' => $value['Unit_price'],
                     'mrp'   => $value['mrp'],
                     'TaxNet' => $value['tax_percent'],

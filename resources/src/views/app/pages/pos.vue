@@ -805,8 +805,7 @@
                         <br>
                         <span>{{formatNumber(detail_invoice.quantity,2)}} {{detail_invoice.unit_sale}} x {{formatNumber(detail_invoice.total/detail_invoice.quantity,2)}}</span>
                         &nbsp;
-			<span> MRP: {{detail_invoice.mrp}} </span>   
-		    </td>
+			              </td>
                     <td
                       style="text-align:right;vertical-align:bottom"
                     >{{formatNumber(detail_invoice.total,2)}}</td>
@@ -2374,6 +2373,8 @@ export default {
             shipping: this.sale.shipping?this.sale.shipping:0,
             details: this.details,
             GrandTotal: this.GrandTotal,
+            GrandTotalMrp: this.GrandTotalMrp,
+            TotalDiscounted: this.total_discounted,
             payment: this.payment,
             account_id: this.payment.account_id,
             amount : parseFloat(this.payment.amount).toFixed(2),
@@ -2431,6 +2432,8 @@ export default {
             notes: this.sale.notes,
             details: this.details,
             GrandTotal: this.GrandTotal,
+            GrandTotalMrp: this.GrandTotalMrp,
+            TotalDiscounted: this.total_discounted,
             payment: this.payment,
             amount : parseFloat(this.payment.amount).toFixed(2),
             received_amount : parseFloat(this.payment.received_amount).toFixed(2),
@@ -2505,12 +2508,17 @@ export default {
     //----------- Calcul Total
     CaclulTotal() {
       this.total = 0;
+      this.totalmrp = 0;
       for (var i = 0; i < this.details.length; i++) {
         var tax = this.details[i].taxe * this.details[i].quantity;
         this.details[i].subtotal = parseFloat(
           this.details[i].quantity * this.details[i].Net_price + tax
         );
+        this.details[i].subtotalmrp = parseFloat(
+          this.details[i].quantity * this.details[i].mrp + tax
+        )
         this.total = parseFloat(this.total + this.details[i].subtotal);
+        this.totalmrp = parseFloat(this.totalmrp + this.details[i].subtotalmrp);
       }
       const total_without_discount = parseFloat(
         this.total - this.sale.discount
@@ -2521,8 +2529,14 @@ export default {
       this.GrandTotal = parseFloat(
         total_without_discount + this.sale.TaxNet + this.sale.shipping
       );
+      this.GrandTotalMrp = parseFloat(
+        grand_total_mrp + this.sale.TaxNet + this.sale.shipping
+      );
       var grand_total =  this.GrandTotal.toFixed(2);
       this.GrandTotal = parseFloat(grand_total);
+      var grand_total_mrp = this.GrandTotalMrp.toFixed(2);
+      this.GrandTotalMrp = parseFloat(grand_total_mrp);
+      this.total_discounted = this.GrandTotalMrp - this.GrandTotal;
     },
     //-------Verified QTY
     Verified_Qty(detail, id) {
