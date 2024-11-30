@@ -849,6 +849,7 @@
                       class="total"
                     >{{invoice_pos.symbol}} {{parseFloat(invoice_pos.sale.GrandTotal - invoice_pos.sale.paid_amount).toFixed(2)}}</td>
                   </tr>
+                  Great! You have saved {{invoice_pos.sale.TotalDiscounted}} from your purchase
                 </tbody>
               </table>
 
@@ -1427,7 +1428,11 @@ export default {
       isLoading: true,
       load_product: true,
       GrandTotal: 0,
+      GrandTotalMrp: 0,
+      TotalDiscounted: 0,
+      total_discounted: 0,
       total: 0,
+      totalmrp: 0,
       Ref: "",
       clients: [],
       units: [],
@@ -1514,6 +1519,7 @@ export default {
         Unit_price: "",
         Total_price: "",
         subtotal: "",
+        subtotalmrp: "", 
         product_id: "",
         detail_id: "",
         taxe: "",
@@ -2530,7 +2536,7 @@ export default {
         total_without_discount + this.sale.TaxNet + this.sale.shipping
       );
       this.GrandTotalMrp = parseFloat(
-        grand_total_mrp + this.sale.TaxNet + this.sale.shipping
+        this.totalmrp + this.sale.TaxNet + this.sale.shipping
       );
       var grand_total =  this.GrandTotal.toFixed(2);
       this.GrandTotal = parseFloat(grand_total);
@@ -2700,6 +2706,9 @@ export default {
       this.sale.shipping = 0;
       this.sale.discount = 0;
       this.GrandTotal = 0;
+      this.GrandTotalMrp = 0;
+      this.total_discounted = 0;
+      this.TotalDiscounted = 0;
       this.total = 0;
       this.category_id = "";
       this.brand_id = "";

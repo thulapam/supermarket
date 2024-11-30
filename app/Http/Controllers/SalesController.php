@@ -993,6 +993,7 @@ class SalesController extends BaseController
         $item['client_name'] = $sale['client']->name;
         $item['warehouse_name'] = $sale['warehouse']->name;
         $item['GrandTotal'] = number_format($sale->GrandTotal, 2, '.', '');
+        $item['TotalDiscounted'] = number_format($sale->TotalDiscounted, 2, ',', '');
         $item['paid_amount'] = number_format($sale->paid_amount, 2, '.', '');
 
         foreach ($sale['details'] as $detail) {
