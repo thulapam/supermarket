@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:6kGgLqyvtyPzlc2UrcnofKOcZV4X+MzdXOswKAGcn1w=',
+    'key' => 'base64:TJjtBsOfZPqDqBpGajyxwHo/UNiQX4q1+YDSKsfes/o=',
     'cipher' => 'AES-256-CBC',
     'STRIPE_KEY' => '',
     'STRIPE_SECRET' => '',
@@ -166,12 +166,12 @@
         array (
           'include' => 
           array (
-            0 => '/var/www/vhosts/quality1',
+            0 => '/var/www/html/supermarket',
           ),
           'exclude' => 
           array (
-            0 => '/var/www/vhosts/quality1/vendor',
-            1 => '/var/www/vhosts/quality1/node_modules',
+            0 => '/var/www/html/supermarket/vendor',
+            1 => '/var/www/html/supermarket/node_modules',
           ),
           'follow_links' => false,
           'ignore_unreadable_directories' => false,
@@ -190,7 +190,7 @@
           0 => 'local',
         ),
       ),
-      'temporary_directory' => '/var/www/vhosts/quality1/storage/app/backup-temp',
+      'temporary_directory' => '/var/www/html/supermarket/storage/app/backup-temp',
     ),
     'notifications' => 
     array (
@@ -324,7 +324,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/vhosts/quality1/storage/framework/cache/data',
+        'path' => '/var/www/html/supermarket/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -380,7 +380,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => 'quality1.cheqkeao0vya.us-east-2.rds.amazonaws.com',
+        'host' => 'quality-1-db-in.cfioce0ssam6.ap-south-1.rds.amazonaws.com',
         'port' => '3306',
         'database' => 'quality-supermarket',
         'username' => 'root',
@@ -396,7 +396,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => 'quality1.cheqkeao0vya.us-east-2.rds.amazonaws.com',
+        'host' => 'quality-1-db-in.cfioce0ssam6.ap-south-1.rds.amazonaws.com',
         'port' => '3306',
         'database' => 'quality-supermarket',
         'username' => 'root',
@@ -412,7 +412,7 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => 'quality1.cheqkeao0vya.us-east-2.rds.amazonaws.com',
+        'host' => 'quality-1-db-in.cfioce0ssam6.ap-south-1.rds.amazonaws.com',
         'port' => '3306',
         'database' => 'quality-supermarket',
         'username' => 'root',
@@ -427,7 +427,7 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'quality1.cheqkeao0vya.us-east-2.rds.amazonaws.com',
+        'host' => 'quality-1-db-in.cfioce0ssam6.ap-south-1.rds.amazonaws.com',
         'port' => '3306',
         'database' => 'quality-supermarket',
         'username' => 'root',
@@ -553,17 +553,17 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/vhosts/quality1/storage/app',
+        'root' => '/var/www/html/supermarket/storage/app',
       ),
       'snapshots' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/vhosts/quality1/database/snapshots',
+        'root' => '/var/www/html/supermarket/database/snapshots',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/vhosts/quality1/storage/app/public',
+        'root' => '/var/www/html/supermarket/storage/app/public',
         'url' => '//storage',
         'visibility' => 'public',
       ),
@@ -579,7 +579,7 @@
     ),
     'links' => 
     array (
-      '/var/www/vhosts/quality1/public/storage' => '/var/www/vhosts/quality1/storage/app/public',
+      '/var/www/html/supermarket/public/storage' => '/var/www/html/supermarket/storage/app/public',
     ),
   ),
   'hashing' => 
@@ -598,7 +598,7 @@
   ),
   'laraupdater' => 
   array (
-    'tmp_path' => '/var/www/vhosts/quality1/storage/app',
+    'tmp_path' => '/var/www/html/supermarket/storage/app',
     'update_baseurl' => '',
     'middleware' => 
     array (
@@ -624,13 +624,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/vhosts/quality1/storage/logs/laravel.log',
+        'path' => '/var/www/html/supermarket/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/vhosts/quality1/storage/logs/laravel.log',
+        'path' => '/var/www/html/supermarket/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -680,7 +680,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/vhosts/quality1/storage/logs/laravel.log',
+        'path' => '/var/www/html/supermarket/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -721,7 +721,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/vhosts/quality1/resources/views/vendor/mail',
+        0 => '/var/www/html/supermarket/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -814,7 +814,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/vhosts/quality1/storage/framework/sessions',
+    'files' => '/var/www/html/supermarket/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => 
@@ -823,7 +823,7 @@
       'lifetime' => '120',
       'expire_on_close' => false,
       'encrypt' => false,
-      'files' => '/var/www/vhosts/quality1/storage/framework/sessions',
+      'files' => '/var/www/html/supermarket/storage/framework/sessions',
       'connection' => NULL,
       'table' => 'store_sessions',
       'store' => NULL,
@@ -855,9 +855,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/vhosts/quality1/resources/views',
+      0 => '/var/www/html/supermarket/resources/views',
     ),
-    'compiled' => '/var/www/vhosts/quality1/storage/framework/views',
+    'compiled' => '/var/www/html/supermarket/storage/framework/views',
   ),
   'dompdf' => 
   array (
@@ -865,10 +865,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => '/var/www/vhosts/quality1/storage/fonts/',
-      'font_cache' => '/var/www/vhosts/quality1/storage/fonts/',
+      'font_dir' => '/var/www/html/supermarket/storage/fonts/',
+      'font_cache' => '/var/www/html/supermarket/storage/fonts/',
       'temp_dir' => '/tmp',
-      'chroot' => '/var/www/vhosts/quality1',
+      'chroot' => '/var/www/html/supermarket',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -950,7 +950,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => '/var/www/vhosts/quality1/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/var/www/html/supermarket/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -1014,9 +1014,9 @@
     ),
     'paths' => 
     array (
-      'modules' => '/var/www/vhosts/quality1/Modules',
-      'assets' => '/var/www/vhosts/quality1/public/modules',
-      'migration' => '/var/www/vhosts/quality1/database/migrations',
+      'modules' => '/var/www/html/supermarket/Modules',
+      'assets' => '/var/www/html/supermarket/public/modules',
+      'migration' => '/var/www/html/supermarket/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -1209,7 +1209,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => '/var/www/vhosts/quality1/vendor/*/*',
+        0 => '/var/www/html/supermarket/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1238,7 +1238,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => '/var/www/vhosts/quality1/modules_statuses.json',
+        'statuses-file' => '/var/www/html/supermarket/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1249,18 +1249,18 @@
   array (
     'config' => 
     array (
-      'model_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/model.txt',
-      'scaffold_model_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/scaffolding/model.txt',
-      'controller_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/controller.txt',
-      'scaffold_controller_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/scaffolding/controller.txt',
-      'migration_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/migration.txt',
-      'seed_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/seed.txt',
-      'view_template_path' => '/var/www/vhosts/quality1/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/view.txt',
-      'model_target_path' => '/var/www/vhosts/quality1/app',
-      'controller_target_path' => '/var/www/vhosts/quality1/app/Http/Controllers',
-      'migration_target_path' => '/var/www/vhosts/quality1/database/migrations',
-      'seed_target_path' => '/var/www/vhosts/quality1/database/seeds',
-      'view_target_path' => '/var/www/vhosts/quality1/resources/views',
+      'model_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/model.txt',
+      'scaffold_model_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/scaffolding/model.txt',
+      'controller_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/controller.txt',
+      'scaffold_controller_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/scaffolding/controller.txt',
+      'migration_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/migration.txt',
+      'seed_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/seed.txt',
+      'view_template_path' => '/var/www/html/supermarket/vendor/oscarafdev/laravel-4-generators/src/Way/Generators/Templates/view.txt',
+      'model_target_path' => '/var/www/html/supermarket/app',
+      'controller_target_path' => '/var/www/html/supermarket/app/Http/Controllers',
+      'migration_target_path' => '/var/www/html/supermarket/database/migrations',
+      'seed_target_path' => '/var/www/html/supermarket/database/seeds',
+      'view_target_path' => '/var/www/html/supermarket/resources/views',
     ),
   ),
   'datatables' => 
