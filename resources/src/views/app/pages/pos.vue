@@ -240,10 +240,10 @@
                               </tr>
                               <tr v-for="(detail, index) in details" :key="index">
                                 <td>
-                                  <span>{{detail.code}}</span> 
+                                  <span>{{detail.name}}</span> 
                                   
                                   <br>
-                                  <span class="badge badge-success">{{detail.name}}</span>
+                                  <span class="badge badge-success">{{detail.code}}</span>
                                   <i v-if="currentUserPermissions && currentUserPermissions.includes('edit_product_sale')" 
                                     @click="Modal_Updat_Detail(detail)" class="i-Edit text-success cursor-pointer"></i>
                                 </td>
@@ -585,7 +585,7 @@
                     </ul>
                 </div>
                 </b-col>
-
+              /**
               <div class="col-md-12 d-flex flex-row flex-wrap bd-highlight list-item mt-2">
                 <div
                   @click="Check_Product_Exist(product , product.id)"
@@ -617,6 +617,7 @@
                   </div>
                 </div>
               </div>
+              */
             </b-row>
             <b-row class="mb-3">
               <b-col md="12" class="mt-4">
@@ -799,7 +800,7 @@
                 <tbody>
                   <tr v-for="detail_invoice in invoice_pos.details">
                     <td colspan="3">
-                      {{detail_invoice.name}}
+                      {{detail_invoice.name}} - {{invoice_pos.symbol}}{{detail_invoice.mrp}}
                        <br v-show="detail_invoice.is_imei && detail_invoice.imei_number !==null">
                         <span v-show="detail_invoice.is_imei && detail_invoice.imei_number !==null ">{{$t('IMEI_SN')}} : {{detail_invoice.imei_number}}</span>
                         <br>
@@ -849,7 +850,6 @@
                       class="total"
                     >{{invoice_pos.symbol}} {{parseFloat(invoice_pos.sale.GrandTotal - invoice_pos.sale.paid_amount).toFixed(2)}}</td>
                   </tr>
-                  Great! You have saved {{invoice_pos.sale.TotalDiscounted}} from your purchase
                 </tbody>
               </table>
 
@@ -881,6 +881,10 @@
                 </tbody>
               </table>
 
+              <div v-if="formatNumber(invoice_pos.sale.TotalDiscounted,2)">
+                <strong>Great! You have saved {{invoice_pos.symbol}} {{invoice_pos.sale.TotalDiscounted}} on your purchase.</strong>
+              </div>
+              
               <div id="legalcopy" class="ml-2">
                 <p class="legal" v-show="pos_settings.show_note">
                   <strong>{{pos_settings.note_customer}}</strong>
@@ -1467,7 +1471,8 @@ export default {
           tax_rate: "",
           shipping: "",
           GrandTotal: "",
-          paid_amount: ""
+          paid_amount: "",
+          TotalDiscounted: ""
         },
         details: [],
         setting: {
@@ -2348,10 +2353,10 @@ export default {
             // Complete the animation of the  progress bar.
             NProgress.done();
             this.$bvModal.show("Show_invoice");
-          }, 500);
+          }, 400);
 
           if(response.data.pos_settings.is_printable){
-            setTimeout(() => this.print_pos(), 1000);
+            setTimeout(() => this.print_pos(), 600);
           }
         })
         .catch(() => {
